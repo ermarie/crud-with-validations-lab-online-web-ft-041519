@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   end
 
   def create
-    binding.pry
+    #binding.pry
     @song = Song.new(song_params)
     if @song.valid?
       @song.save
@@ -19,6 +19,7 @@ class SongsController < ApplicationController
   end
 
   def update
+    @song = Song.find(params[:id])
     @song.update(song_params)
     if @song.valid?
       @song.save
@@ -31,6 +32,7 @@ class SongsController < ApplicationController
   def destroy
     @song = Song.find(params[:id])
     @song.destroy
+    redirect_to '/songs'
   end
 
   def index
@@ -44,6 +46,6 @@ class SongsController < ApplicationController
   private 
 
   def song_params
-    params.require(:song).permit(:title, :release, :release_year, :artist_name, :genre)
+    params.require(:song).permit(:title, :released, :release_year, :artist_name, :genre)
   end
 end
